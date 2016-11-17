@@ -11,7 +11,7 @@ $client = new nusoap_client($wsdl,true);
 
 //Give it value at parameter 
 	 $param = array(); 
-	 $result = $client->call('GetAllDescuento_Ingreso',$param,'','','',true);
+	 $result = $client->call('GetAllDiscountsIncome',$param,'','','',true);
 
 // fault if any
 if ($client->fault) {

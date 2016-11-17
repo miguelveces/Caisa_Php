@@ -154,10 +154,18 @@ h6
 	ms-filter: "alpha(Opacity=100)";
 	opacity: 1;
 }
+
+.box .box-header-content
+{
+	background: #fff;
+	padding: 10px;
+}
 .box .box-content
 {
 	background: #fff;
 	padding: 10px;
+	min-height:700px;
+	
 }
 blockquote
 {
@@ -2216,7 +2224,7 @@ ul.tickets li.ticket .number
 {
 	background: #fff;
 	border-bottom: 1px solid #e4e6eb;
-	font-size: 12px;
+	font-size: 14px;
 	margin-left: 0!important;
 	padding: 10px 10px 10px 35px;
 	position: relative;

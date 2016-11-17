@@ -76,7 +76,7 @@ $(function() {
 							$('#success > .alert-success').append('</div>');
 
 							//clear all fields
-							$('#form_usuario').trigger("reset");
+							$('#form_descuento').trigger("reset");
 					}
 					else
 					{

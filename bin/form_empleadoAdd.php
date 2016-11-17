@@ -46,7 +46,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$fecha_terminacion = isset($_POST['datetermination']) ? mysqli_real_escape_string($connect, $_POST['datetermination']) :  ""; 
 	$isr_gasto = isset($_POST['isr']) ? mysqli_real_escape_string($connect, $_POST['isr']) :  "";
     $id_empresa = isset($_SESSION['id_empresa']) ? mysqli_real_escape_string($connect, $_SESSION['id_empresa']) :  ""; 	
-
+    $id_usuario= isset($_SESSION['id_usuario']) ? mysqli_real_escape_string($connect, $_SESSION['id_usuario']) :  "";
 	//Give it value at parameter 
 	$param = array('numero_empleado' =>	$numero_empleado,'cedula' => $cedula,'seguro_social' => $seguro_social,
 					'apellido' => $apellido,'nombre' =>	$nombre,'id_genero' => $id_genero,'id_nacionalidad' => $id_nacionalidad,
@@ -60,14 +60,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 	
 	$result = $client->call('AddEmployee',$param,'','','',true);
+
 	
+	
+
 	//prueba de datos**************************************************************************************************//
 	//*****************************************************************************************************************//
-	      //$result=$param;
-		   //header('Content-type: application/json');
-		   //$json = array("status" => 1, "info" => $result);
-			//echo json_encode($json);
-			//exit();
+	     /* $result=$param;
+		   header('Content-type: application/json');
+		   $json = array("status" => 1, "info" => $result);
+			echo json_encode($json);
+			exit();*/
 	
 	//*****************************************************************************************************************//
 	
@@ -76,7 +79,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 }
 else
 {
-    $genders = $client->call('GetAllGender',$param,'','','',true);
+    $genders = $client->call('GetAllGenders',$param,'','','',true);
 	foreach($genders as $gender){ 
 		$resultGender.='<option value='.$gender['id_genero'].'>'.$gender['nombre_genero'].'</option>';
 	} 
@@ -91,11 +94,11 @@ else
 		$resultStatesEmployee.='<option value='.$stateemployees['id_estado_empleado'].'>'.$stateemployees['nombre_estado_empleado'].'</option>';
 	} 
 	
-	$nationalities = $client->call('GetAllNationality',$param,'','','',true); 
+	$nationalities = $client->call('GetAllNationalities',$param,'','','',true); 
 	foreach($nationalities as $nationality){ 
 		$resultNationality.='<option value='.$nationality['id_nacionalidad'].'>'.$nationality['nacionalidad'].'</option>';
 	} 
-	$positions = $client->call('GetAllPosition',$param,'','','',true);
+	$positions = $client->call('GetAllPositions',$param,'','','',true);
 	foreach($positions as $position){ 
 		$resultPosition.='<option value='.$position['id_cargo'].'>'.$position['nombre_cargo'].'</option>';
 	} 
@@ -131,7 +134,7 @@ else
         if($result!=false)
          {
 			header('Content-type: application/json');
-			if($result[0]['msg']=='OK')
+			if($resultLegalTaxEmployee[0]['msg']=='OK')
 			{
 				$json = array("status" => 1, "info" => $result);
 				

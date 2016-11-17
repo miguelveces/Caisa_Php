@@ -18,7 +18,7 @@ $(function() {
 						data.info[i].nombre_descuento_ingreso,
                                                 data.info[i].tipo,
                                                 data.info[i].numero_cuenta,
-						'<a class="btn btn-info" href="form_descuento_ingresoEdit.html?id='+data.info[i].id_descuento_ingreso+'"><i class="icon-edit"></i></a>'
+						'<a class="btn btn-info" href="form_descuento_ingresoEdit.html?id='+data.info[i].id_descuento_ingreso+'"><i class="icon-edit"></i> Modificar</a>'
 						]);										
 					} // End For
 

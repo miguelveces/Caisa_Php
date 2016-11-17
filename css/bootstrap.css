@@ -5244,6 +5244,21 @@ input[type="submit"].btn.btn-mini {
   margin: 0;
   line-height: 30px;
 }
+.modal-header-danger {
+  padding: 9px 15px;
+  color: #b94a48;
+  background-color: #f2dede;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header-danger .close {
+  margin-top: 2px;
+}
+
+.modal-header-danger h3 {
+  margin: 0;
+  line-height: 30px;
+}
 
 .modal-body {
   position: relative;

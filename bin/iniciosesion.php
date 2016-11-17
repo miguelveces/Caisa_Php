@@ -3,6 +3,7 @@ session_start();
 
 //require_once ('lib/nusoap.php'); 
 require_once ('../../WSCaisa/lib/nusoap.php'); 
+ set_time_limit (600);
 //$wsdl= "http://". $_SERVER['SERVER_NAME']."/WSCaisa/MyService.php?wsdl";
 $wsdl= "http://". $_SERVER['SERVER_NAME']."/demos/WSCaisa/MyService.php?wsdl";
 //Create object that referer a web services 
@@ -23,13 +24,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     //Give it value at parameter 
     $param = array('nombre_usuario' => $nombre_usuario,'pwd' => $pwd); 
 	$result = $client->call('GetUserByName',$param,'','','',true);
-	$companies = $client->call('GetAllCompany',$parame,'','','',true);
+	$companies = $client->call('GetAllCompanies',$parame,'','','',true);
 }
 else
 {
-	$companies = $client->call('GetAllCompany',$param,'','','',true);
+	$companies = $client->call('GetAllCompanies',$param,'','','',true);
 	foreach($companies as $company){ 
-		$result.='<option value='.$company['id_empresa'].'>'.$company['nombre_empresa'].'</option>';
+		if($company['codigo_actividad']){
+			$result.='<option value='.$company['id_empresa'].'>'.$company['nombre_empresa'].'</option>';
+		}
 	} 
 	
 	header('Content-type: application/json');

@@ -68,7 +68,7 @@ else
 	$result = $client->call('GetEmployeeByid',$param,'','','',true);
   
 	
-    $genders = $client->call('GetAllGender',$param,'','','',true);
+    $genders = $client->call('GetAllGenders',$param,'','','',true);
 	foreach($genders as $gender){ 
 		$resultGender.='<option value='.$gender['id_genero'].' '.($gender['id_genero'] == $result[0]['id_genero'] ? 'selected="selected"' : "").'>'.$gender['nombre_genero'].'</option>';
 	} 
@@ -83,11 +83,11 @@ else
 		$resultStatesEmployee.='<option value='.$stateemployees['id_estado_empleado'].' '.($stateemployees['id_estado_empleado'] == $result[0]['id_estado_empleado'] ? 'selected="selected"' : "").'>'.$stateemployees['nombre_estado_empleado'].'</option>';
 	} 
 	
-	$nationalities = $client->call('GetAllNationality',$param,'','','',true); 
+	$nationalities = $client->call('GetAllNationalities',$param,'','','',true); 
 	foreach($nationalities as $nationality){ 
 		$resultNationality.='<option value='.$nationality['id_nacionalidad'].' '.($nationality['id_nacionalidad'] == $result[0]['id_nacionalidad'] ? 'selected="selected"' : "").'>'.$nationality['nacionalidad'].'</option>';
 	} 
-	$positions = $client->call('GetAllPosition',$param,'','','',true);
+	$positions = $client->call('GetAllPositions',$param,'','','',true);
 	foreach($positions as $position){ 
 		$resultPosition.='<option value='.$position['id_cargo'].' '.($position['id_cargo'] == $result[0]['id_cargo'] ? 'selected="selected"' : "").'>'.$position['nombre_cargo'].'</option>';
 	} 

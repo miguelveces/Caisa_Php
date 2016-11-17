@@ -13,17 +13,18 @@ $(function() {
 					for(var i = 0; i < data.info.length; i++) {
 						//alert(data.info[i].id_usuarios);
 						oTable.fnAddData([
+						'<a class="btn btn-inverse" href="form_descuento_ingreso_empleadoList.html?id='+data.info[i].id_empleado+'"><i class="icon-list"></i> Listar</a>',
+						'<a class="btn btn-success" href="form_cuenta_banco_empleado.html?id='+data.info[i].id_empleado+'"><i class="icon-plus"></i> Agregar</a>',
+						'<a class="btn btn-primary" href="form_empleado_renta_fija.html?id='+data.info[i].id_empleado+'"><i class="icon-zoom-in"></i> Ver</a>',
 						data.info[i].numero_empleado,
 						data.info[i].nombre,
 						data.info[i].apellido,
 						data.info[i].cedula,
-						data.info[i].seguro_social,
-						'<a class="btn btn-info" href="form_empleadoEdit.html?id='+data.info[i].id_empleado+'"><i class="icon-edit"></i></a>',
-                                                //'<a class="btn btn-info" href="form_descuento_ingreso_x_empleado.html?id='+data.info[i].id_empleado+'"><i class="icon-edit"></i></a>',
-                                                 '<b><a href="form_descuento_ingreso_x_empleado.html?id='+data.info[i].id_empleado+' class="btn btn-success" role="button">Ir a Descuento/Ingreso </a></b>'
+						'<a class="btn btn-info" href="form_empleadoEdit.html?id='+data.info[i].id_empleado+'"><i class="icon-edit"></i>Modificar</a>'
+						
 						]);										
 					} // End For
-
+					 
 				}		
 		},
 		error: function() {

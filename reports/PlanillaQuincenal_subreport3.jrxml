@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanillaQuincenal_subreport3" language="groovy" pageWidth="510" pageHeight="180" orientation="Landscape" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="eda1bb3d-2150-4b2d-b3f5-1abc8553be08">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_empleado" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_periodo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_empresa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT i.monto_ss, i.monto_se, i.monto_isr, d.cod1, d.cod2, d.cod3, d.cod4, d.cod5, d.cod6,
+d.monto1, d.monto2, d.monto3, d.monto4, d.monto5, d.monto6,
+d.pendiente1, d.pendiente2, d.pendiente3, d.pendiente4, d.pendiente5, d.pendiente6,@total_legal := ROUND(cast( i.monto_ss AS DECIMAL(10,2))+ cast(i.monto_se AS DECIMAL(10,2))+ cast(i.monto_isr AS DECIMAL(10,2)),2) AS total_legal,
+@total_comerc := ROUND(cast(d.monto1 AS DECIMAL(10,2))+ cast(d.monto2 AS DECIMAL(10,2))+ cast(d.monto3 AS DECIMAL(10,2))+ cast(d.monto4 AS DECIMAL(10,2))+ cast(d.monto5 AS DECIMAL(10,2))+ cast(d.monto6 AS DECIMAL(10,2)),2) AS total_comerc
+FROM impuestos_legales_empleados i, descuentos_ingresos_empleados_detalles d
+WHERE i.id_empleado=d.id_empleado
+AND i.id_periodo=d.id_periodo
+AND i.id_empleado=$P{id_empleado}
+AND i.id_periodo=$P{id_periodo}]]>
+	</queryString>
+	<field name="monto_ss" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_se" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_isr" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pendiente1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pendiente2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pendiente3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pendiente4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pendiente5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pendiente6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_legal" class="java.math.BigDecimal"/>
+	<field name="total_comerc" class="java.math.BigDecimal"/>
+	<detail>
+		<band height="144" splitType="Stretch">
+			<line>
+				<reportElement x="509" y="0" width="1" height="144" uuid="a82e2f92-658d-43ca-9025-df38c1eef32f"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="402" y="48" width="72" height="12" uuid="20e146f0-b3ae-4065-bb03-2596a835ae90"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SAL.COMPENS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="36" width="72" height="12" uuid="e9052f93-a53e-4ed1-b114-2ccd7c583484"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SAL.DOMINGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="24" width="72" height="12" uuid="f59bc7fc-19a7-4a2b-8dab-23bb59cb225b"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SAL.ENFER.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="60" width="57" height="12" uuid="30f3824a-1ae1-491a-a2fd-e8c5a7f3a1a0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SAL.F/N]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="72" width="72" height="12" uuid="709ab6cc-6294-45d6-baeb-82f3a20d5f39"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SAL.HRAJUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="84" width="72" height="12" uuid="3d19bf85-5042-428a-8b8e-5f3403cd7d5e"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SAL.AUSEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="12" width="57" height="12" uuid="55b57fa2-e5f5-49ab-9747-10092e3ad4d7"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SAL.EXTRA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="0" width="72" height="12" uuid="7ef189af-9013-4eed-8ca4-e450aa110d03"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SAL.REGULAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="96" width="57" height="12" uuid="474b3065-9c62-4665-bebc-19d4f42c6b01"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SAL.OTROS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="120" width="72" height="12" uuid="ecf82afa-c1d1-4d87-a6b2-a438e4609120"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[TOT.DESCTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="108" width="72" height="12" uuid="00281b70-e37e-4d02-9362-953f4f1d2780"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SAL.BRUTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="132" width="83" height="12" uuid="22d47298-efb1-4429-8f84-404f7b18736b"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SALARIO NETO -->]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

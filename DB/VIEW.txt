@@ -1,0 +1,68 @@
+SELECT
+     SUM(jornadas_empleados.`horas_regulares`) AS jornadas_empleados_horas_regulares,
+     SUM(jornadas_empleados.`horas_extras`) AS jornadas_empleados_horas_extras,
+     empresas.`nombre_empresa` AS empresas_nombre_empresa,
+     empleados.`id_empleado` AS empleados_id_empleado,
+     empleados.`numero_empleado` AS empleados_numero_empleado,
+     empleados.`nombre` AS empleados_nombre,
+     empleados.`apellido` AS empleados_apellido,
+     empleados.`cedula` AS empleados_cedula,
+     empleados.`seguro_social` AS empleados_seguro_social,
+     empleados.`salario` AS empleados_salario,
+     empleados.`rata_x_hora` AS empleados_rata_x_hora,
+     empleados.`horas_x_periodo` AS empleados_horas_x_periodo,
+     empleados.`isr_gasto` AS empleados_isr_gasto,
+     empleados.`id_empresa` AS empleados_id_empresa,
+     cuentas_banco_empleados.`numero_cuenta` AS cuentas_banco_empleados_numero_cuenta,
+     descuentos_ingresos_empleados.`monto_mes` AS descuentos_ingresos_empleados_monto_mes,
+     descuentos_ingresos_empleados.`monto_periodo` AS descuentos_ingresos_empleados_monto_periodo,
+     descuentos_ingresos_empleados.`monto_urgente` AS descuentos_ingresos_empleados_monto_urgente,
+     descuentos_ingresos_empleados.`monto_original` AS descuentos_ingresos_empleados_monto_original,
+     descuentos_ingresos_empleados.`monto_pendiente` AS descuentos_ingresos_empleados_monto_pendiente,
+     impuestos_legales_empleados.`monto_ss` AS impuestos_legales_empleados_monto_ss,
+     impuestos_legales_empleados.`monto_se` AS impuestos_legales_empleados_monto_se,
+     impuestos_legales_empleados.`monto_isr` AS impuestos_legales_empleados_monto_isr,
+     descuentos_ingresos.`cod_descuento_ingreso` AS descuentos_ingresos_cod_descuento_ingreso,
+     empresas.`id_empresa` AS empresas_id_empresa,
+     empleados.`clave_renta` AS empleados_clave_renta,
+     jornadas_empleados.`id_periodo` AS jornadas_empleados_id_periodo,
+     impuestos_legales_empleados.`id_periodo` AS impuestos_legales_empleados_id_periodo
+FROM
+     `empresas` empresas LEFT OUTER JOIN `empleados` empleados ON empresas.`id_empresa` = empleados.`id_empresa`
+     LEFT OUTER JOIN `cuentas_banco_empleados` cuentas_banco_empleados ON empleados.`id_empleado` = cuentas_banco_empleados.`id_empleado`
+     LEFT OUTER JOIN `descuentos_ingresos_empleados` descuentos_ingresos_empleados ON empleados.`id_empleado` = descuentos_ingresos_empleados.`id_empleado`
+     LEFT OUTER JOIN `impuestos_legales_empleados` impuestos_legales_empleados ON empleados.`id_empleado` = impuestos_legales_empleados.`id_empleado`
+     LEFT OUTER JOIN `jornadas_empleados` jornadas_empleados ON empleados.`id_empleado` = jornadas_empleados.`id_empleado`
+     LEFT OUTER JOIN `descuentos_ingresos` descuentos_ingresos ON descuentos_ingresos_empleados.`id_descuento_ingreso_empleado` = descuentos_ingresos.`id_descuento_ingreso`
+
+WHERE
+     empleados.id_empresa = 5 AND impuestos_legales_empleados.id_periodo =3
+	 AND (descuentos_ingresos_empleados.id_periodo=3 OR descuentos_ingresos_empleados.id_periodo IS NULL)
+	 GROUP BY
+     empresas_nombre_empresa,
+     empleados_id_empleado,
+     empleados_numero_empleado,
+     empleados_nombre,
+     empleados_apellido,
+     empleados_cedula,
+     empleados_seguro_social,
+     empleados_salario,
+     empleados_rata_x_hora,
+     empleados_horas_x_periodo,
+     empleados_isr_gasto,
+     empleados_id_empresa,
+     cuentas_banco_empleados_numero_cuenta,
+     descuentos_ingresos_empleados_monto_mes,
+     descuentos_ingresos_empleados_monto_periodo,
+     descuentos_ingresos_empleados_monto_urgente,
+     descuentos_ingresos_empleados_monto_original,
+     descuentos_ingresos_empleados_monto_pendiente,
+     impuestos_legales_empleados_monto_ss,
+     impuestos_legales_empleados_monto_se,
+     impuestos_legales_empleados_monto_isr,
+     descuentos_ingresos_cod_descuento_ingreso,
+     empresas_id_empresa,
+     empleados_clave_renta,
+	 jornadas_empleados_id_periodo,
+     impuestos_legales_empleados_id_periodo
+     ORDER BY  empleados_id_empleado,impuestos_legales_empleados_id_periodo

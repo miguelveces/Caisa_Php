@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanillaQuincenal" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="778" leftMargin="7" rightMargin="7" topMargin="7" bottomMargin="7" uuid="84776ff0-1520-4f8d-902e-9166f71df032">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_periodo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_empresa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$P{id_empresa}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numero_periodo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_desde" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_hasta" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{SUBREPORT_DIR}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT id_comprobante_empleado, id_empleado, numero_empleado, id_periodo, id_seccion, nombre_seccion, nombre_departamento,
+nombre_empleado, apellido_empleado, cedula_empleado, id_empresa, nombre_empresa, rataxhora, claveir, numero_comprobante,
+numero_cuenta, id_tipo_cuenta, id_banco, total_ingreso,  total_descuento,@total_regular := ROUND(cast(total_ingreso AS DECIMAL(10,2))-cast(total_descuento AS DECIMAL(10,2)),2) AS total_regular
+FROM comprobantes_empleados
+WHERE  id_empresa = $P{id_empresa}
+AND id_periodo = $P{id_periodo}
+ORDER BY id_seccion]]>
+	</queryString>
+	<field name="id_comprobante_empleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_empleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_periodo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_seccion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_seccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_departamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellido_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedula_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_empresa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_empresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rataxhora" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="claveir" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_comprobante" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_cuenta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_tipo_cuenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_banco" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_ingreso" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_descuento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_regular" class="java.math.BigDecimal"/>
+	<variable name="salario_1" class="java.math.BigDecimal" resetType="Group" resetGroup="seccion" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_regular}]]></variableExpression>
+	</variable>
+	<variable name="cantidad_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{id_empleado}]]></variableExpression>
+	</variable>
+	<group name="seccion">
+		<groupExpression><![CDATA[$F{id_seccion}]]></groupExpression>
+		<groupHeader>
+			<band height="56">
+				<staticText>
+					<reportElement x="1" y="43" width="100" height="12" uuid="deb51863-2234-4ced-a6fe-075ca9a59174"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[EMPLEADO]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="59" y="5" width="32" height="12" uuid="24ef5274-16ff-4791-a018-ce24f18cac85"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_seccion}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="1" y="41" width="777" height="1" uuid="dc763b1b-74c6-460a-a52d-361716eeab4f"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="2" y="5" width="79" height="12" uuid="7c55038e-8bf6-4013-873d-d59c8662cce2"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="8"/>
+					</textElement>
+					<text><![CDATA["SECCCION  :"]]></text>
+				</staticText>
+				<line>
+					<reportElement x="181" y="37" width="1" height="6" uuid="a9bdb38d-9160-4fcc-80de-741eb1ab7ac0"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="181" y="48" width="1" height="6" uuid="36fa24fd-61bb-4751-9636-e45a62217c3d"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="183" y="43" width="100" height="12" uuid="5b0d9d05-b494-497b-b7f3-55f73c5f0764"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA["DETALLE DEL PAGO"]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="91" y="5" width="89" height="12" uuid="7a1a46ed-1860-465f-89e5-9224be38abcb"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre_seccion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="91" y="17" width="89" height="12" uuid="a2a269ea-b099-4f43-8eac-0d1b4b7a348c"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre_departamento}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="2" y="55" width="777" height="1" uuid="171475d2-580a-4fe0-8209-7fe81e1dbe2d"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="198">
+				<line>
+					<reportElement x="0" y="13" width="777" height="1" uuid="a4770080-1482-4055-8962-3fe4ce1f7780"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="1" y="27" width="777" height="1" uuid="8db4b46c-7d98-4f36-9fdb-37b64e94811f"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="130" y="14" width="103" height="12" uuid="00e81734-8ce3-4b42-9ad7-5709121b70aa"/>
+					<textElement>
+						<font fontName="Lucida Sans Typewriter" size="8"/>
+					</textElement>
+					<text><![CDATA[INGRESO]]></text>
+				</staticText>
+				<textField pattern="###0.00">
+					<reportElement x="233" y="30" width="32" height="12" uuid="8b470905-530d-41d0-bae3-2456584e45ed"/>
+					<textElement textAlignment="Right">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{salario_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="130" y="42" width="103" height="12" uuid="95fb97aa-6595-4eda-84cd-762053c1c31e"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Salario Extra"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="30" width="103" height="12" uuid="cae718a8-2d78-43eb-bd3a-7158b0008e75"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Salario Regular"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="65" width="111" height="12" uuid="55260ca2-096c-4d27-aea4-04c12df11102"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Salario Domingo"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="53" width="111" height="12" uuid="f90778d1-2f44-4f0b-811d-7c003e8297e4"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Salario Enfermedad"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="89" width="111" height="12" uuid="631f58c4-e4c6-4f7a-9f26-2c914545d375"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Salario Fiesta N."]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="77" width="111" height="12" uuid="e19fb2ec-4ba4-4b0d-a567-bffeafb5561d"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Salario Compens."]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="124" width="111" height="12" uuid="51e20b3c-17b8-49c1-bc08-3f64f60e8928"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Ajuste en Balboas"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="160" width="111" height="12" uuid="6cbd3ab2-9e77-4bdf-afb1-f21c04926d96"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Otros Ingresos 3"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="101" width="122" height="12" uuid="e3a5c149-08bf-4722-8f90-acff9fc7cfaf"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Salario Hrs.Ajuste."]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="136" width="111" height="12" uuid="e54a88a9-f9d0-45cd-9ce4-7b55f7b3f92c"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Otros Ingresos 1"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="113" width="119" height="12" uuid="d6f3f500-7cda-4429-93c2-783b4333ba55"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Salario Hrs.Ausen."]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="148" width="111" height="12" uuid="c8e360c5-a801-4cd4-8bee-fb9215cf967e"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Otros Ingresos 2"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="172" width="111" height="12" uuid="c5bb78fc-8552-4783-92db-40e4c3a0df37"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Vacaciones"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="186" width="111" height="12" uuid="e2ccb789-fdff-4d8f-8e09-c5fed3ed43e2"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["TOTAL INGRESOS"]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="197" width="777" height="1" uuid="5f62dcfb-1d27-4770-98b4-67b25262990f"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="280" y="14" width="103" height="12" uuid="59177386-eedd-485a-9197-5681f5b261b1"/>
+					<textElement>
+						<font fontName="Lucida Sans Typewriter" size="8"/>
+					</textElement>
+					<text><![CDATA[DEDUCIONES]]></text>
+				</staticText>
+				<line>
+					<reportElement x="125" y="11" width="1" height="6" uuid="45dbdaf3-d48f-42cd-b9c2-56f2e1436585"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="125" y="25" width="1" height="6" uuid="004e3486-be48-44ab-8ff4-fa8851b8d43e"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="125" y="192" width="1" height="6" uuid="fde1c2b1-8165-420f-8d3f-ab6b3704da03"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="274" y="11" width="1" height="6" uuid="6bd4fce9-b9e9-4496-afd7-f7bb81555f25"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="274" y="192" width="1" height="6" uuid="a6a115d1-6b3c-4d5a-97d9-f929d65527c7"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="274" y="25" width="1" height="6" uuid="7a758afe-f0cf-4e9a-b658-1d2503f0909f"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="279" y="53" width="111" height="12" uuid="65f5d545-d2a7-462a-ba96-ba8a5019c920"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Seguro Educativo"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="279" y="186" width="111" height="12" uuid="e267201e-637b-4171-9d80-158ba71cf0ff"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["TOTAL DEDUCCIONES"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="279" y="89" width="111" height="12" uuid="4cb6b040-7269-4fb3-be0f-838e2ec75308"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Otros"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="279" y="30" width="103" height="12" uuid="ef1dd51c-cb73-48ba-aae3-153afc9b24b6"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Impuesto S/Renta"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="279" y="101" width="122" height="12" uuid="a81768ec-05d0-4a30-b1b3-7385ffafce03"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Anticipos"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="279" y="160" width="111" height="12" uuid="354b9afe-ccec-461a-a69b-d3bd51669acd"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["CxC - Empleados"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="279" y="172" width="111" height="12" uuid="95040b76-f177-470c-8d4a-de6e93b9c975"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Desc. Comerciales"]]></text>
+				</staticText>
+				<textField pattern="###0.00">
+					<reportElement x="382" y="30" width="32" height="12" uuid="2cacb81d-247e-40e3-8a91-331dc1320630"/>
+					<textElement textAlignment="Right">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{salario_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="279" y="42" width="103" height="12" uuid="cdacbc53-7491-42a9-a63d-85bd60ba2aca"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Seguro Social"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="279" y="77" width="111" height="12" uuid="9cf33125-3546-4277-9673-c86293dcb635"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["Ctas. Cobrar"]]></text>
+				</staticText>
+				<textField pattern="###0.00">
+					<reportElement x="575" y="186" width="32" height="12" uuid="54aeb85a-705c-4042-afa4-f3e4a95e104e"/>
+					<textElement textAlignment="Right">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{salario_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="427" y="77" width="148" height="12" uuid="ebbc0483-ddd7-40e9-a1b8-5ad12285c70d"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["CANTIDAD DE EMPLEADOS   :"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="427" y="186" width="148" height="12" uuid="087b3f7b-a284-4bde-83c5-9cde528494d0"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["INGRESO NETO            :"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="605" y="186" width="34" height="12" uuid="91537a34-ec5e-4290-baa6-b066bb26ef91"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["***"]]></text>
+				</staticText>
+				<line>
+					<reportElement x="422" y="192" width="1" height="6" uuid="2d127d25-8803-41ea-b0ca-7b5717b092a7"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="422" y="11" width="1" height="6" uuid="ee08c9c2-0c73-42f3-8ea9-8f48067a282b"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="422" y="25" width="1" height="6" uuid="b8e0cd41-5ece-488c-a899-d96754a2de45"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement x="427" y="53" width="136" height="12" uuid="e5a9c0ed-3843-4977-9a32-268e781d0e33"/>
+					<textElement>
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre_departamento}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="575" y="77" width="32" height="12" uuid="ebf219a9-724d-4faa-a53c-1d64e9db7818"/>
+					<textElement textAlignment="Right">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{cantidad_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="13" y="54" width="111" height="23" uuid="71cbdd77-4fbd-4a22-b646-82f397db14a4"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Lucida Sans Typewriter" size="9"/>
+					</textElement>
+					<text><![CDATA["TOTAL DE ESTE DEPARTAMENTO"]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="61">
+			<textField>
+				<reportElement x="238" y="34" width="11" height="12" uuid="6b68a33c-41c0-481c-bf40-0e09d3f76216"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numero_periodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="34" width="51" height="12" uuid="0eb6cf44-430a-4506-8b24-144dae6c8a31"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha_desde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="34" width="77" height="12" uuid="e2b7431f-29ce-4c90-8835-bd324faa484d"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha_hasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="199" y="34" width="42" height="12" uuid="bf51e697-5ca5-4474-b994-afd829fb58cc"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[PERIODO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="34" width="19" height="12" uuid="4f6cb5ae-e9b7-4e34-a8f0-623e9afa67da"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[AL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="34" width="23" height="12" uuid="0da04ed4-5482-4651-b321-0b2d5acda4b3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[DEL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="219" y="22" width="177" height="12" uuid="551f43c7-42e4-4ee0-a23f-e6fe54dc7ffc"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE PLANILLA QUINCENAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="0" width="57" height="12" uuid="ed91cd2e-0e3a-46e1-afbf-03da3de39f57"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[FECHA PAGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="219" y="10" width="177" height="12" uuid="b26105cd-533f-4d1a-9bdd-e6e4df81562c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[SISTEMA ADMINISTRATIVO CONTABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="48" width="79" height="12" uuid="76184133-7c52-44f5-bd7d-e27d3ec0c102"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[EMPRESA     :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="49" width="100" height="12" uuid="8ed6070a-85b7-4f70-914b-677066cf59e7"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_empresa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="128" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="36" width="128" height="12" uuid="56200da1-52ed-4fdf-a7d4-ac7a8cd0bc4d"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="11" width="41" height="12" uuid="d92ca49a-bf22-42fc-916e-398a60a47711"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="11" width="42" height="12" uuid="82abb882-8028-4c89-a381-9717493f1bd8"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{claveir}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="85" y="11" width="45" height="12" uuid="86242c23-60fc-4b4d-9976-f4c0160fe347"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_regular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="48" width="128" height="12" uuid="01376df4-ed62-42b9-89a4-3817f1565e9c"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellido_empleado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="73" width="100" height="12" uuid="9a2b4193-fef6-4920-97ec-afd1fdece0fb"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[COMPROBANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="11" width="46" height="12" uuid="bb4e2cbf-c44f-4c9a-b98b-688bcbeffe88"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[HORAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="24" width="46" height="12" uuid="5e2333b2-f3c4-4086-939a-9870faad2c54"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[FACTOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="36" width="46" height="12" uuid="75263dd0-ce2c-4ea6-b1d2-996d2f36a567"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[BRUTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="48" width="46" height="12" uuid="54c9905b-88b5-438c-8d7a-70252e446c8d"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[INGRESOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="73" width="46" height="12" uuid="5538beb6-edbf-4bc9-a2c6-1bc7729319b3"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[DESCTOS.]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="181" y="2" width="424" height="39" uuid="94ce61b6-7980-4959-aff7-fad79f86ae4a"/>
+				<subreportParameter name="id_empleado">
+					<subreportParameterExpression><![CDATA[$F{id_empleado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$F{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rataxhora">
+					<subreportParameterExpression><![CDATA[$F{rataxhora}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_empresa">
+					<subreportParameterExpression><![CDATA[$F{id_empresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PlanillaQuincenal_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="181" y="2" width="424" height="126" uuid="9cdbb17b-b193-4d90-adf1-0b4fb23984da"/>
+				<subreportParameter name="id_empleado">
+					<subreportParameterExpression><![CDATA[$F{id_empleado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_periodo">
+					<subreportParameterExpression><![CDATA[$F{id_periodo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_empresa">
+					<subreportParameterExpression><![CDATA[$F{id_empresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PlanillaQuincenal_subreport2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="201" splitType="Stretch">
+			<staticText>
+				<reportElement x="130" y="114" width="111" height="12" uuid="3a7647c4-1ddf-44eb-af26-1dda58f9e20e"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Ajuste en Balboas"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="43" width="111" height="12" uuid="1caba8cd-6b11-40bf-bf2b-e8f550bbadf2"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Salario Enfermedad"]]></text>
+			</staticText>
+			<line>
+				<reportElement x="422" y="15" width="1" height="6" uuid="740ce0f1-e65a-42e0-a1f7-ee4e6f0ce898"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="2" y="44" width="122" height="11" uuid="6dd941d6-baba-4cd2-bbdd-43ad00ed37a8"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["TOTAL DE LA EMPRESA"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="43" width="111" height="12" uuid="d78b1ac8-c757-4d09-8757-5ae4d8986983"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Seguro Educativo"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="20" width="103" height="12" uuid="bcfa9360-2eba-46a3-ae3e-898b46334364"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Impuesto S/Renta"]]></text>
+			</staticText>
+			<line>
+				<reportElement x="125" y="15" width="1" height="6" uuid="2dd19929-897e-4293-a4c8-fb4ac1c4f059"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="130" y="138" width="111" height="12" uuid="a75e44b5-b08b-48c8-83c2-7d519264fb83"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Otros Ingresos 2"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="55" width="111" height="12" uuid="f628265f-a55d-4e9a-8308-10b8721e9fd0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Salario Domingo"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="91" width="122" height="12" uuid="fbb4d676-abbd-416c-a0cc-227b22e52268"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Anticipos"]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="17" width="777" height="1" uuid="6bb317aa-346d-417f-81cf-e2c9de8208b7"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField pattern="###0.00">
+				<reportElement x="233" y="20" width="32" height="12" uuid="7bd8526c-5df5-4d8a-aebf-ea8489b477df"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{salario_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="32" width="103" height="12" uuid="557f71cf-3f58-4ede-a432-01e9734b9b89"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Salario Extra"]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="575" y="67" width="32" height="12" uuid="a278b70f-d4d5-4a99-b036-3624f4362535"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{cantidad_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="422" y="195" width="1" height="6" uuid="0cb38466-af24-463d-aaad-0b826773716f"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="279" y="79" width="111" height="12" uuid="afba9a82-a2c4-4e01-86e3-38085cc5b8ad"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Otros"]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement x="575" y="186" width="32" height="12" uuid="806b9eb5-987e-4bbc-bc50-9a9464fb2c07"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{salario_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="186" width="111" height="12" uuid="e092e40b-23ec-4f09-9351-5bf8b75a1b03"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["TOTAL INGRESOS"]]></text>
+			</staticText>
+			<line>
+				<reportElement x="274" y="195" width="1" height="6" uuid="3550bec7-8f54-488e-a52d-137c25248c98"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="279" y="150" width="111" height="12" uuid="b31a7a6b-2d00-4f44-970b-58fa7bce28c3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["CxC - Empleados"]]></text>
+			</staticText>
+			<line>
+				<reportElement x="125" y="-1" width="1" height="6" uuid="0cd288e0-027e-4756-8ab2-90a69ae5e988"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="130" y="79" width="111" height="12" uuid="aaaa7dc8-f520-4b5f-9414-efbe5ee95140"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Salario Fiesta N."]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="427" y="43" width="136" height="12" uuid="67600cdf-4fa5-45ec-b77d-8920b1211293"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_departamento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="274" y="-1" width="1" height="6" uuid="9f172979-97a2-43e6-b087-8a57cf8551c3"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="130" y="91" width="122" height="12" uuid="1c471b05-f79d-46ad-8bd5-56728847828d"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Salario Hrs.Ajuste."]]></text>
+			</staticText>
+			<line>
+				<reportElement x="422" y="-1" width="1" height="6" uuid="ed424c83-8e47-451b-9f2f-a7ff3e421c54"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="130" y="150" width="111" height="12" uuid="25b396c1-ef1b-4fed-8feb-207310db2e34"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Otros Ingresos 3"]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement x="382" y="20" width="32" height="12" uuid="12bd0494-f717-4c4a-9970-e486a3bd6728"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{salario_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="274" y="15" width="1" height="6" uuid="b63b24f8-8a80-4bbe-97f0-a61f7dd6a8cc"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="130" y="162" width="111" height="12" uuid="57b5ffa7-5e4a-42fe-8492-34462cb8c36c"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Vacaciones"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="126" width="111" height="12" uuid="d85f321d-d708-4778-ad86-1d2f5ad1d4f6"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Otros Ingresos 1"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="32" width="103" height="12" uuid="dbfedc5f-f39c-400f-af9b-5fb680898e0b"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Seguro Social"]]></text>
+			</staticText>
+			<line>
+				<reportElement x="125" y="195" width="1" height="6" uuid="706f41aa-ef66-40fa-a105-e61c58b25812"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="198" width="777" height="1" uuid="c0f55b7d-ac77-42b0-95bf-617dcc262585"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="279" y="67" width="111" height="12" uuid="f417b003-12f8-4623-8709-d41e15cff7ff"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Ctas. Cobrar"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="186" width="111" height="12" uuid="36fa0739-f1c7-4c60-aed7-5e0e823d3fb2"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["TOTAL DEDUCCIONES"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="605" y="186" width="34" height="12" uuid="2579ba31-f3ce-4677-a9a1-19ed7ab4f5fc"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["***"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="4" width="103" height="12" uuid="c08893a1-2d02-46f6-b5ba-2483a56f7660"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[DEDUCIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="67" width="111" height="12" uuid="47f06e34-3189-49a9-93f8-ceaa2fb51cb0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Salario Compens."]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="162" width="111" height="12" uuid="0b749d88-d915-43b7-b04e-d3436e27d1cc"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Desc. Comerciales"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="67" width="148" height="12" uuid="5ecb79b4-1d1e-4aa2-96bd-2d25db387cb8"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["CANTIDAD DE EMPLEADOS   :"]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="1" width="777" height="1" uuid="c65aae04-7d9f-4a03-a87c-ddd40ede53a6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="130" y="20" width="103" height="12" uuid="b607cecf-4fbf-4bbf-bb92-9c10b1e47ce3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Salario Regular"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="186" width="148" height="12" uuid="e8276253-7221-4055-8375-10c7c1febbd3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["INGRESO NETO            :"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="103" width="119" height="12" uuid="be957676-b34c-4bc0-8e86-1696188a0924"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Lucida Sans Typewriter" size="9"/>
+				</textElement>
+				<text><![CDATA["Salario Hrs.Ausen."]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="3" width="103" height="12" uuid="793c1def-8eed-4d03-8daa-411619c6709c"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[INGRESO]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

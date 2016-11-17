@@ -17,10 +17,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$nombre_descuento_ingreso = isset($_POST['namedesingre']) ? mysqli_real_escape_string($connect, $_POST['namedesingre']) :  "";
 	$tipo = isset($_POST['typedesingre']) ? mysqli_real_escape_string($connect, $_POST['typedesingre']) :  "";
 	$numero_cuenta = isset($_POST['numbank']) ? mysqli_real_escape_string($connect, $_POST['numbank']) :  "";
-        $id_usuario= isset($_SESSION['id_usuario']) ? mysqli_real_escape_string($connect, $_SESSION['id_usuario']) :  "";
+    $id_usuario= isset($_SESSION['id_usuario']) ? mysqli_real_escape_string($connect, $_SESSION['id_usuario']) :  "";
     //Give it value at parameter 
     $param = array('cod_descuento_ingreso' => $cod_descuento_ingreso,'nombre_descuento_ingreso' => $nombre_descuento_ingreso,'tipo' => $tipo,'numero_cuenta' => $numero_cuenta,'id_usuario' =>$id_usuario); 
-	$result = $client->call('AddDescuento_Ingreso',$param,'','','',true);
+	$result = $client->call('AddDiscountsIncome',$param,'','','',true);
 
 }
 else

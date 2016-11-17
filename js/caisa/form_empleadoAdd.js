@@ -1,4 +1,16 @@
 $(function() {
+		function formatDate(dt) {
+				
+				var fdate="";
+				if(dt!="")
+				{
+					var df = dt.split('-');
+				   fdate = df[2]+'-'+df[1]+'-'+df[0];
+				}
+				
+				return fdate;
+			}
+
 		$.ajax({
 			url: "./bin/form_empleadoAdd.php",
 			type: "GET",
@@ -47,7 +59,7 @@ $(function() {
 			var gender = $("select#ddlGender").val();
 			var nationality = $("select#ddlNationality").val();
 			var statescivil = $("select#ddlStatesCivil").val();
-			var datebirth = $("input#txtDateBirth").val();
+			var datebirth = formatDate($("input#txtDateBirth").val());
             var typeblood = $("input#txtTypeBlood").val();
 			var statesemployee = $("select#ddlStatesEmployee").val();
 			var secciondepart = $("select#ddlSeccionDepart").val();
@@ -55,24 +67,19 @@ $(function() {
 			var basehours = $("input#txtBaseHours").val();
 			var rathours = $("input#txtRatHours").val();
 			var salary = $("input#txtSalary").val();
-			var datecontract = $("input#txtDateContract").val();
-			var datecarnet = $("input#txtDateCarnet").val();
+			var datecontract = formatDate($("input#txtDateContract").val());
+			var datecarnet = formatDate($("input#txtDateCarnet").val());
 			var payment = $("select#ddlPayment").val();
 			var syndicate = $("select#ddlSyndicate").val();
 			var keyrent = $("input#txtKeyRent").val();
 			var paymentm = $("input#txtPaymentM").val();
 			var paymentf = $("input#txtPaymentF").val();
-			var dateadmission = $("input#txtDateAdmission").val();
-			var dateholidays = $("input#txtDateHolidays").val();
-			var datetermination = $("input#txtDateTermination").val();
+			var dateadmission = formatDate($("input#txtDateAdmission").val());
+			var dateholidays = formatDate($("input#txtDateHolidays").val());
+			var datetermination = formatDate($("input#txtDateTermination").val());
 			var isr = $("select#ddlISR").val();
 
-            /*alert(employeenum +''+identitycardnum+''+socisecunum+''+lastnames+''+ 
-					names+''+gender+''+nationality+''+statescivil+''+datebirth+''+ 
-					typeblood+''+statesemployee+''+secciondepart+''+position+''+
-					basehours+''+rathours+''+salary+''+datecontract+''+datecarnet+''+ 
-					payment+''+syndicate+''+keyrent+''+paymentm+''+paymentf+''+ 
-					dateadmission+''+dateholidays+''+datetermination+''+isr);*/
+          
            
             $.ajax({
                 url: "./bin/form_empleadoAdd.php",

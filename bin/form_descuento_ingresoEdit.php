@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
        $id_descuento_ingreso = isset($_POST['id']) ? mysqli_real_escape_string($connect, $_POST['id']) :  "";
     //Give it value at parameter 
     $param = array('id_descuento_ingreso' => $id_descuento_ingreso,'cod_descuento_ingreso' => $cod_descuento_ingreso,'nombre_descuento_ingreso' => $nombre_descuento_ingreso,'tipo' => $tipo,'numero_cuenta' => $numero_cuenta); 
-	$result = $client->call('EditDescuento_IngresoByid',$param,'','','',true);
+	$result = $client->call('EditDiscountsIncomeByid',$param,'','','',true);
 
 }
 else
@@ -27,7 +27,7 @@ else
 	
     $id_descuento_ingreso = isset($_GET['id']) ? mysqli_real_escape_string($connect, $_GET['id']) :  "";
 	$param = array('id_descuento_ingreso' => $id_descuento_ingreso); 
-	$result = $client->call('GetDescuento_IngresoByid',$param,'','','',true);
+	$result = $client->call('GetDiscountsIncomeByid',$param,'','','',true);
  header('Content-type: application/json');
  $json = array("status" => 1, "info" => $result);
  echo json_encode($json);

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComprobanteEmpleados_subreport4" language="groovy" pageWidth="135" pageHeight="200" columnWidth="135" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e9240033-559a-4e1c-9576-c5d30568c5da">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_empleado" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_periodo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total_descuento" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT cod_descuento_ingreso, monto_periodo, monto_pendiente
+FROM descuentos_ingresos_empleados e,descuentos_ingresos d
+WHERE id_empleado=$P{id_empleado}
+AND id_periodo=$P{id_periodo}
+AND e.id_descuento_ingreso=d.id_descuento_ingreso]]>
+	</queryString>
+	<field name="cod_descuento_ingreso" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_periodo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pendiente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="DESCUENTOS">
+		<groupExpression><![CDATA[$F{cod_descuento_ingreso}]]></groupExpression>
+		<groupHeader>
+			<band height="14">
+				<textField pattern="###0.00">
+					<reportElement x="54" y="0" width="29" height="12" uuid="46a49129-30aa-40cd-8923-380578c1e8e5"/>
+					<textElement textAlignment="Right">
+						<font fontName="Lucida Sans Typewriter" size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{monto_periodo}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement x="95" y="0" width="35" height="12" uuid="40689857-712b-4980-8e46-8814f996d33d"/>
+					<textElement>
+						<font fontName="Lucida Sans Typewriter" size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{monto_pendiente}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement x="0" y="0" width="46" height="12" uuid="54707cda-c1fb-4833-a533-d49a73d8efbd"/>
+					<textElement>
+						<font fontName="Lucida Sans Typewriter" size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cod_descuento_ingreso}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="1" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="0" width="1" height="1" uuid="13505924-1f44-4bf7-9d75-1afadd0eb9d4"/>
+				<textElement>
+					<font fontName="Lucida Sans Typewriter" size="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{id_empleado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

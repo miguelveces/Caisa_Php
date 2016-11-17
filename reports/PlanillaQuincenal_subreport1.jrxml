@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanillaQuincenal_subreport1" language="groovy" pageWidth="405" pageHeight="180" orientation="Landscape" columnWidth="405" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="eda1bb3d-2150-4b2d-b3f5-1abc8553be08">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_empleado" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_periodo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rataxhora" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_empresa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT id_registro_transaccion_empleado, id_empleado, id_empresa, id_periodo, horas_regular, CASE horas_domingo WHEN '0.00' THEN '' ELSE horas_domingo END AS horas_domingo,
+CASE horas_feriado WHEN '0.00' THEN '' ELSE horas_feriado END AS horas_feriado,
+CASE horas_compensatorio WHEN '0.00' THEN '' ELSE horas_compensatorio END AS horas_compensatorio,
+CASE horas_extra1 WHEN '0.00' THEN '' ELSE horas_extra1 END AS horas_extra1,
+CASE horas_extra2 WHEN '0.00' THEN '' ELSE horas_extra2 END AS horas_extra2,
+CASE horas_extra3 WHEN '0.00' THEN '' ELSE horas_extra3 END AS horas_extra3,
+CASE horas_extra4 WHEN '0.00' THEN '' ELSE horas_extra4 END AS horas_extra4,
+CASE horas_extra5 WHEN '0.00' THEN '' ELSE horas_extra5 END AS horas_extra5,
+CASE horas_extra6 WHEN '0.00' THEN '' ELSE horas_extra6 END AS horas_extra6,
+CASE horas_extra7 WHEN '0.00' THEN '' ELSE horas_extra7 END AS horas_extra7,
+CASE horas_extra8 WHEN '0.00' THEN '' ELSE horas_extra8 END AS horas_extra8,
+CASE horas_extra9 WHEN '0.00' THEN '' ELSE horas_extra9 END AS horas_extra9,
+CASE horas_extra10 WHEN '0.00' THEN '' ELSE horas_extra10 END AS horas_extra10,
+CASE factor_reg WHEN '0.00' THEN '' ELSE factor_reg END AS factor_reg,
+CASE factor_dom WHEN '0.00' THEN '' ELSE factor_dom END AS factor_dom,
+CASE factor_fer WHEN '0.00' THEN '' ELSE factor_fer END AS factor_fer,
+CASE factor_com WHEN '0.00' THEN '' ELSE factor_com END AS factor_com,
+CASE factor_reg WHEN '0.0000' THEN '' ELSE factor_reg END AS factor_reg,
+CASE factor_dom WHEN '0.0000' THEN '' ELSE factor_dom END AS factor_dom,
+CASE factor_fer WHEN '0.0000' THEN '' ELSE factor_fer END AS factor_fer,
+CASE factor_com WHEN '0.0000' THEN '' ELSE factor_com END AS factor_com,
+CASE factor1 WHEN '0.0000' THEN '' ELSE factor1 END AS factor1,
+CASE factor2 WHEN '0.0000' THEN '' ELSE factor2 END AS factor2,
+CASE factor3 WHEN '0.0000' THEN '' ELSE factor3 END AS factor3,
+CASE factor4 WHEN '0.0000' THEN '' ELSE factor4 END AS factor4,
+CASE factor5 WHEN '0.0000' THEN '' ELSE factor5 END AS factor5,
+CASE factor6 WHEN '0.0000' THEN '' ELSE factor6 END AS factor6,
+CASE factor7 WHEN '0.0000' THEN '' ELSE factor7 END AS factor7,
+CASE factor8 WHEN '0.0000' THEN '' ELSE factor8 END AS factor8,
+CASE factor9 WHEN '0.0000' THEN '' ELSE factor9 END AS factor9,
+CASE factor10 WHEN '0.0000' THEN '' ELSE factor10 END AS factor10,
+horas_enferm, horas_ajuste, horas_ausen, horas_certmedic, adelanto_vacaciones,
+@valor_regular := ROUND(( cast(horas_regular AS DECIMAL(10,2))* $P{rataxhora} * cast(factor_reg AS DECIMAL(10,4))),2) AS valor_regular,
+@valor_domingo :=  CASE horas_domingo WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_domingo AS DECIMAL(10,2))* $P{rataxhora} * cast(factor_dom AS DECIMAL(10,4))),2) END AS valor_domingo,
+@valor_feriado :=  CASE horas_feriado WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_feriado AS DECIMAL(10,2))* $P{rataxhora} * cast(factor_fer AS DECIMAL(10,4))),2) END AS valor_feriado,
+@valor_compensatorio :=  CASE horas_compensatorio WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_compensatorio AS DECIMAL(10,2))* $P{rataxhora} * cast(factor_com AS DECIMAL(10,4))),2) END AS valor_compensatorio,
+@valor_extra1  :=  CASE horas_extra1 WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_extra1 AS DECIMAL(10,2))* $P{rataxhora} * cast(factor1 AS DECIMAL(10,4))),2) END AS valor_extra1,
+@valor_extra2  :=  CASE horas_extra2 WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_extra2 AS DECIMAL(10,2))* $P{rataxhora} * cast(factor2 AS DECIMAL(10,4))),2) END AS valor_extra2,
+@valor_extra3  :=  CASE horas_extra3 WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_extra3 AS DECIMAL(10,2))* $P{rataxhora} * cast(factor3 AS DECIMAL(10,4))),2) END AS valor_extra3,
+@valor_extra4  :=  CASE horas_extra4 WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_extra4 AS DECIMAL(10,2))* $P{rataxhora} * cast(factor4 AS DECIMAL(10,4))),2) END AS valor_extra4,
+@valor_extra5  :=  CASE horas_extra5 WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_extra5 AS DECIMAL(10,2))* $P{rataxhora} * cast(factor5 AS DECIMAL(10,4))),2) END AS valor_extra5,
+@valor_extra6  :=  CASE horas_extra6 WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_extra6 AS DECIMAL(10,2))* $P{rataxhora} * cast(factor6 AS DECIMAL(10,4))),2) END AS valor_extra6,
+@valor_extra7  :=  CASE horas_extra7 WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_extra7 AS DECIMAL(10,2))* $P{rataxhora} * cast(factor7 AS DECIMAL(10,4))),2) END AS valor_extra7,
+@valor_extra8  :=  CASE horas_extra8 WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_extra8 AS DECIMAL(10,2))* $P{rataxhora} * cast(factor8 AS DECIMAL(10,4))),2)END  AS valor_extra8,
+@valor_extra9  :=  CASE horas_extra9 WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_extra9 AS DECIMAL(10,2))* $P{rataxhora} * cast(factor9 AS DECIMAL(10,4))),2)END  AS valor_extra9,
+@valor_extra10 :=  CASE horas_extra10 WHEN '0.00' THEN '' ELSE ROUND(( cast(horas_extra10 AS DECIMAL(10,2))* $P{rataxhora} * cast(factor10 AS DECIMAL(10,4))),2) END AS valor_extra10
+FROM registros_transacciones_empleados
+WHERE id_empleado=$P{id_empleado}
+AND id_empresa =$P{id_empresa}
+AND id_periodo=$P{id_periodo}]]>
+	</queryString>
+	<field name="id_registro_transaccion_empleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_empleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_empresa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_periodo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_regular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_domingo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_feriado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_compensatorio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra7" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra8" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra9" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra10" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor_reg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor_dom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor_fer" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor_com" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor7" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor8" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor9" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor10" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_enferm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_ajuste" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_ausen" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_certmedic" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="adelanto_vacaciones" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valor_regular" class="java.lang.Double"/>
+	<field name="valor_domingo" class="java.lang.String"/>
+	<field name="valor_feriado" class="java.lang.String"/>
+	<field name="valor_compensatorio" class="java.lang.String"/>
+	<field name="valor_extra1" class="java.lang.String"/>
+	<field name="valor_extra2" class="java.lang.String"/>
+	<field name="valor_extra3" class="java.lang.String"/>
+	<field name="valor_extra4" class="java.lang.String"/>
+	<field name="valor_extra5" class="java.lang.String"/>
+	<field name="valor_extra6" class="java.lang.String"/>
+	<field name="valor_extra7" class="java.lang.String"/>
+	<field name="valor_extra8" class="java.lang.String"/>
+	<field name="valor_extra9" class="java.lang.String"/>
+	<field name="valor_extra10" class="java.lang.String"/>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<textField pattern="###0.00">
+				<reportElement x="10" y="8" width="32" height="12" uuid="e32c4cfb-4609-4ea6-a937-925058f996ce"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horas_regular}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0000">
+				<reportElement x="12" y="20" width="32" height="12" uuid="eaaf79fb-c256-4955-9f12-b6c99ae011cb"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factor_reg}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="10" y="32" width="32" height="12" uuid="83bde333-6a00-4f80-89e7-7dfee14677ce"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_regular}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="43" y="0" width="1" height="48" uuid="4abb60d3-199c-43f1-87f4-881a7c708765"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField pattern="###0.00">
+				<reportElement x="53" y="8" width="32" height="12" uuid="90d82cfd-cbad-4aff-b3a2-c1e682d9af7f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horas_domingo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="96" y="8" width="32" height="12" uuid="224483fc-f824-4d73-bb44-5f89c690be9f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horas_feriado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="139" y="8" width="32" height="12" uuid="6741c343-95fd-4512-8c87-7238227e331c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horas_compensatorio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="182" y="8" width="32" height="12" uuid="babb510f-8d08-4489-a341-7ae10c2d31a2"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horas_extra1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="225" y="8" width="32" height="12" uuid="eef5ddfd-2cb7-4240-8f75-81215272b787"/>
+				<textElement textAlignment="Right">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horas_extra2}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="86" y="0" width="1" height="48" uuid="42e84945-6649-4d70-a1c3-bda0ee461946"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="129" y="0" width="1" height="48" uuid="db7a9299-a539-4e00-9e84-8d3bdc820571"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="172" y="0" width="1" height="48" uuid="4ddc20f7-0b1f-4640-b4d1-9d62c51491ef"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="215" y="0" width="1" height="48" uuid="46a7b038-666a-4c53-8d76-0118ffb835cb"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="258" y="0" width="1" height="48" uuid="3fd4f5fe-4e71-4ae9-b104-19f4c09d25dc"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="306" y="0" width="1" height="48" uuid="47af0d87-16ea-4cfd-b1cc-b9f7461d426d"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="354" y="0" width="1" height="48" uuid="f1ee50ee-005e-453b-a651-a45bda70a5ba"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="402" y="0" width="1" height="48" uuid="e2939419-7965-4c88-8518-cc62a7e99bac"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="260" y="0" width="47" height="12" uuid="ad0d42bf-eea7-412c-8460-a3d22271f5a6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[HR.AJUS.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="47" height="12" uuid="3e5e0fc7-1e34-451a-82bd-94ea899c69cf"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[AUSEN.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="0" width="47" height="12" uuid="f5af2591-e4a5-4be9-9617-eaaecb9bce87"/>
+				<textElement textAlignment="Center">
+					<font fontName="Lucida Sans Typewriter" size="8"/>
+				</textElement>
+				<text><![CDATA[HR.CERT.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="1" height="48" uuid="fd33bdc6-a163-4bc2-a580-a2e18b359b70"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

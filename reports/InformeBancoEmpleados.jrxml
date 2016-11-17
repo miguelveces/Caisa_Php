@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Informebanco" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a78c1bba-c32f-4fff-8d19-1af6420b112b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_periodo" class="java.lang.Integer"/>
+	<parameter name="id_empresa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$P{id_empresa}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numero_periodo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_inicio" class="java.lang.String"/>
+	<parameter name="fecha_final" class="java.lang.String"/>
+	<parameter name="fecha_pago" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     `id_talonario_empleado`,
+     `id_empleado`,
+     `numero_empleado`,
+     `id_periodo`,
+     `id_seccion`,
+     `nombre_seccion`,
+     `nombre_departamento`,
+     `nombre_empleado`,
+     `apellido_empleado`,
+     `cedula_empleado`,
+     `id_empresa`,
+     `nombre_empresa`,
+     `horas_regular`,
+ 	`horas_domingo`,
+	 `horas_feriado`,
+	 `horas_compensatorio`,
+	 `horas_extra1`,
+	 `horas_extra2`,
+	 `horas_extra3`,
+	 `horas_extra4`,
+	 `horas_extra5`,
+	 `horas_extra6`,
+	 `horas_extra7`,
+	 `horas_extra8`,
+	 `horas_extra9`,
+	 `horas_extra10`,
+     `factor_reg`,
+     `factor_dom`,
+     `factor_fer`,
+     `factor_com`,
+     `factor1`,
+     `factor2`,
+     `factor3`,
+     `factor4`,
+     `factor5`,
+     `factor6`,
+     `factor7`,
+     `factor8`,
+     `factor9`,
+     `factor10`,
+     `horas_enferm`,
+     `horas_ajuste`,
+     `horas_ausen`,
+     `rataxhora`,
+     `claveir`,
+     `seg_soc`,
+     `seg_edu`,
+      CASE `isr` WHEN 0 THEN '' ELSE `isr` END AS `isr`,
+     `cod1`,
+     `cod2`,
+     `cod3`,
+     `cod4`,
+     `cod5`,
+     `cod6`,
+     `cod7`,
+     `cod8`,
+     `cod9`,
+     `cod10`,
+     `monto1`,
+     `monto2`,
+     `monto3`,
+     `monto4`,
+     `monto5`,
+     `monto6`,
+     `monto7`,
+     `monto8`,
+     `monto9`,
+     `monto10`,
+     `monto_pend1`,
+     `monto_pend2`,
+     `monto_pend3`,
+     `monto_pend4`,
+     `monto_pend5`,
+     `monto_pend6`,
+     `monto_pend7`,
+     `monto_pend8`,
+     `monto_pend9`,
+     `monto_pend10`,
+     `numero_comprobante`,
+     `sal_deve_vacaciones`,
+     `sal_deve_xiiimes`,
+     `acu_pago_vacaciones`,
+     `acu_pago_xiiimes`,
+`numero_cuenta`,`id_tipo_cuenta`,`id_banco`,
+@valor_regular := ROUND(( cast(`horas_regular` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor_reg` AS DECIMAL(10,4))),2) AS valor_regular,
+@valor_domingo := ROUND(( cast(`horas_domingo` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor_dom` AS DECIMAL(10,4))),2) AS valor_domingo,
+@valor_feriado := ROUND(( cast(`horas_feriado` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor_fer` AS DECIMAL(10,4))),2) AS valor_feriado,
+@valor_compensatorio := ROUND(( cast(`horas_compensatorio` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor_com` AS DECIMAL(10,4))),2) AS valor_compensatorio,
+@valor_extra1  := ROUND(( cast(`horas_extra1` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor1` AS DECIMAL(10,4))),2) AS valor_extra1,
+@valor_extra2  := ROUND(( cast(`horas_extra2` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor2` AS DECIMAL(10,4))),2) AS valor_extra2,
+@valor_extra3  := ROUND(( cast(`horas_extra3` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor3` AS DECIMAL(10,4))),2) AS valor_extra3,
+@valor_extra4  := ROUND(( cast(`horas_extra4` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor4` AS DECIMAL(10,4))),2) AS valor_extra4,
+@valor_extra5  := ROUND(( cast(`horas_extra5` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor5` AS DECIMAL(10,4))),2) AS valor_extra5,
+@valor_extra6  := ROUND(( cast(`horas_extra6` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor6` AS DECIMAL(10,4))),2) AS valor_extra6,
+@valor_extra7  := ROUND(( cast(`horas_extra7` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor7` AS DECIMAL(10,4))),2) AS valor_extra7,
+@valor_extra8  := ROUND(( cast(`horas_extra8` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor8` AS DECIMAL(10,4))),2) AS valor_extra8,
+@valor_extra9  := ROUND(( cast(`horas_extra9` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor9` AS DECIMAL(10,4))),2) AS valor_extra9,
+@valor_extra10  := ROUND(( cast(`horas_extra10` AS DECIMAL(10,2))* cast(`rataxhora` AS DECIMAL(10,2)) * cast(`factor10` AS DECIMAL(10,4))),2) AS valor_extra10,
+@valor_extra := ROUND(( @valor_extra1  + @valor_extra2 + @valor_extra3  + @valor_extra4 + @valor_extra5  + @valor_extra6 + @valor_extra7  + @valor_extra8 + @valor_extra9  + @valor_extra10 ),2) AS valor_extra,
+@total_ingresos := ROUND(( (IFNULL(@valor_regular ,0)) + (IFNULL(@valor_domingo ,0)) + (IFNULL(@valor_extra1 ,0)) + (IFNULL(@valor_extra2 ,0)) + (IFNULL(@valor_extra3 ,0)) + (IFNULL(@valor_extra4 ,0))  + (IFNULL(@valor_extra5 ,0))  + (IFNULL(@valor_extra6 ,0))  + (IFNULL(@valor_extra7 ,0)) + (IFNULL(@valor_extra8 ,0))  + (IFNULL(@valor_extra9 ,0))  + (IFNULL(@valor_extra10 ,0))  ),2) AS total_ingresos,
+@total_descuentos := ROUND(( cast(`seg_soc` AS DECIMAL(10,2))+ cast(`seg_edu` AS DECIMAL(10,2)) + cast(`isr` AS DECIMAL(10,2)) + cast((IFNULL(`monto1` ,0)) AS DECIMAL(10,2)) + cast((IFNULL(`monto2` ,0)) AS DECIMAL(10,2)) + cast((IFNULL(`monto3` ,0)) AS DECIMAL(10,2)) + cast((IFNULL(`monto4` ,0)) AS DECIMAL(10,2)) + cast((IFNULL(`monto5` ,0)) AS DECIMAL(10,2)) + cast((IFNULL(`monto6` ,0)) AS DECIMAL(10,2)) + cast((IFNULL(`monto7` ,0)) AS DECIMAL(10,2)) + cast((IFNULL(`monto8` ,0)) AS DECIMAL(10,2)) + cast((IFNULL(`monto9` ,0)) AS DECIMAL(10,2)) + cast((IFNULL(`monto10` ,0)) AS DECIMAL(10,2))),2)  AS total_descuentos,
+@salario_neto := ROUND(( @total_ingresos  - @total_descuentos ),2) AS salario_neto
+FROM
+     `talonarios_empleados` talonarios_empleados
+WHERE
+     id_empresa = $P{id_empresa}
+ AND id_periodo = $P{id_periodo}]]>
+	</queryString>
+	<field name="id_talonario_empleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_empleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_periodo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_seccion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_seccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_departamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellido_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedula_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_empresa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_empresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_regular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_domingo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_feriado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_compensatorio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra7" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra8" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra9" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_extra10" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor_reg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor_dom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor_fer" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor_com" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor7" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor8" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor9" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factor10" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_enferm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_ajuste" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horas_ausen" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rataxhora" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="claveir" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="seg_soc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="seg_edu" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="isr" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod7" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod8" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod9" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod10" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto7" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto8" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto9" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto10" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pend1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pend2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pend3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pend4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pend5" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pend6" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pend7" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pend8" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pend9" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_pend10" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_comprobante" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sal_deve_vacaciones" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sal_deve_xiiimes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="acu_pago_vacaciones" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="acu_pago_xiiimes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_cuenta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_tipo_cuenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_banco" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valor_regular" class="java.math.BigDecimal"/>
+	<field name="valor_domingo" class="java.math.BigDecimal"/>
+	<field name="valor_feriado" class="java.math.BigDecimal"/>
+	<field name="valor_compensatorio" class="java.math.BigDecimal"/>
+	<field name="valor_extra1" class="java.math.BigDecimal"/>
+	<field name="valor_extra2" class="java.math.BigDecimal"/>
+	<field name="valor_extra3" class="java.math.BigDecimal"/>
+	<field name="valor_extra4" class="java.math.BigDecimal"/>
+	<field name="valor_extra5" class="java.math.BigDecimal"/>
+	<field name="valor_extra6" class="java.math.BigDecimal"/>
+	<field name="valor_extra7" class="java.math.BigDecimal"/>
+	<field name="valor_extra8" class="java.math.BigDecimal"/>
+	<field name="valor_extra9" class="java.math.BigDecimal"/>
+	<field name="valor_extra10" class="java.math.BigDecimal"/>
+	<field name="valor_extra" class="java.lang.Double"/>
+	<field name="total_ingresos" class="java.lang.Double"/>
+	<field name="total_descuentos" class="java.math.BigDecimal"/>
+	<field name="salario_neto" class="java.lang.Double"/>
+	<variable name="salario_neto_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{salario_neto}]]></variableExpression>
+	</variable>
+	<variable name="id_tipo_cuenta_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{id_tipo_cuenta}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="159" y="0" width="185" height="20" uuid="41548807-ec7e-4419-a577-5cfd64683232"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Informe para el banco Compania:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="655" y="0" width="38" height="20" uuid="e343ffc4-9172-4665-9449-3fe6141a6b7e"/>
+				<text><![CDATA[Pag.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="673" y="0" width="100" height="20" uuid="87c5e2e4-dfb8-4634-afc7-f7e7932a244c"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="0" width="63" height="20" uuid="ea3ebf42-be1a-4f1d-816d-8fa09c8c4ca6"/>
+				<textElement verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha_pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="232" y="20" width="14" height="20" uuid="4b700fa4-8ceb-4099-bea1-eb90abeb8ed3"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numero_periodo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="183" y="20" width="49" height="20" uuid="d43ca816-4745-4ec9-9436-21a85af2153f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="20" width="25" height="20" uuid="bbc37620-9b85-41e5-94fc-2b8091424213"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[del]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="20" width="15" height="20" uuid="685aa513-f7e8-4020-a761-1a69d616f31c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="271" y="20" width="69" height="20" uuid="7bdb0e8c-b11b-4ed9-ae48-6613ce151d41"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha_inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="20" width="78" height="20" uuid="12a0b6db-2e5d-48fe-a816-d78554d22a9f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha_final}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="344" y="0" width="156" height="20" uuid="9a566141-975c-45cc-9b23-3e8a498711b6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_empresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="39" height="20" uuid="900f2c95-e53b-47b0-9743-3a390e30e155"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="21" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="20" width="802" height="1" uuid="b593ed7e-3f71-45eb-81cb-b468e209f3c2"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="3" width="58" height="17" uuid="d77c7bd7-67e1-4d63-808a-960bc05cd6f6"/>
+				<text><![CDATA[# Emple]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="3" width="67" height="17" uuid="25cca6fa-03c5-4421-a1b3-560f39ef5fac"/>
+				<text><![CDATA[Cedula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="126" y="3" width="90" height="17" uuid="60c9b56e-9079-4c1c-a7a1-464cec5e8b50"/>
+				<text><![CDATA[Numero Cta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="3" width="126" height="17" uuid="37ad1a40-3161-4533-a4c3-85feb2d51267"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="3" width="118" height="17" uuid="f6a61a0c-999b-4b32-90f2-e2ac05541871"/>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="486" y="2" width="40" height="18" uuid="dc1080cb-543b-4c95-89a1-360f66c8b1fb"/>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="3" width="26" height="17" uuid="f506341a-a1aa-4358-90ec-6f3848efe463"/>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="528" y="2" width="127" height="18" uuid="939837e2-159e-4344-818a-8a587e1ba089"/>
+				<text><![CDATA[Observacion]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField pattern="">
+				<reportElement x="0" y="1" width="58" height="16" uuid="522cf712-06c8-4804-99f1-021c1087c9f6"/>
+				<textFieldExpression><![CDATA["$F{numero_empleado}"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="1" width="67" height="16" uuid="ea174925-d738-4f1a-9713-e61253441b56"/>
+				<textFieldExpression><![CDATA[$F{cedula_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="1" width="89" height="16" uuid="c8591206-0dbb-4d43-902f-5f4850d41f0b"/>
+				<textFieldExpression><![CDATA["$F{numero_cuenta}"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="1" width="26" height="16" uuid="7732f1e1-6c74-4728-9377-8a0dec980574"/>
+				<textFieldExpression><![CDATA[$F{id_tipo_cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="245" y="1" width="127" height="16" uuid="54456b04-60b8-4d38-8d5a-300570becfcb"/>
+				<textFieldExpression><![CDATA[$F{nombre_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="1" width="117" height="16" uuid="d67829b8-6e58-4f4d-a284-325bc8de8622"/>
+				<textFieldExpression><![CDATA[$F{apellido_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="1" width="40" height="16" uuid="8514f24a-885a-4b48-aa01-7705dde9136e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{salario_neto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="528" y="0" width="274" height="16" uuid="cb61c270-571a-4090-bd81-f3c296ba8180"/>
+				<textFieldExpression><![CDATA["REF*TXT**  PERIODO DE PAGO # "+ $P{numero_periodo} + " "+$P{fecha_pago}
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="17">
+			<textField>
+				<reportElement x="486" y="0" width="40" height="16" uuid="02fca541-ec70-41b9-90f2-1dc548b1cf43"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{salario_neto_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="127" y="0" width="44" height="16" uuid="a05217d6-7bac-49dc-97c3-c7b4cbd33357"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Regidtro:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="218" y="0" width="26" height="16" uuid="ba451cf9-495f-4ff8-966f-1f8cdabf1d67"/>
+				<textFieldExpression><![CDATA[$V{id_tipo_cuenta_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="368" y="0" width="118" height="16" uuid="e7deb8ac-b97a-44b7-92bb-c63ed48e08b6"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
