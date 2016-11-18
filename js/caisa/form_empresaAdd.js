@@ -46,7 +46,7 @@ $(function() {
 					if(data.status == 1)
 					{
 							$('#success').html("<div class='alert alert-success'>");
-							$('#success > .alert-success').append("<strong>El Empresa fue registrado correctamente</strong>");
+							$('#success > .alert-success').append("<strong>La Empresa fue registrada correctamente</strong>");
 							$('#success > .alert-success').append('</div>');
 
 							//clear all fields
