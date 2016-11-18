@@ -4,7 +4,7 @@ session_start();
 require_once ('../../WSCaisa/lib/nusoap.php'); 
  set_time_limit (600);
 //$wsdl= "http://". $_SERVER['SERVER_NAME']."/WSCaisa/MyService.php?wsdl";
-$wsdl= "http://". $_SERVER['SERVER_NAME']."/demos/WSCaisa/MyService.php?wsdl";
+$wsdl= "http://". $_SERVER['SERVER_NAME']."/WSCaisa/MyService.php?wsdl";
 
 //Create object that referer a web services 
 $client = new nusoap_client($wsdl,true); 
